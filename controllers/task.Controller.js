@@ -35,5 +35,22 @@ const getAllTask = async (req,res) =>{
 }
 
 
+const deleteTask = async (req,res) =>{
+    const id = req.params.id
+    console.log(id)
+    try {
+        console.log("h1")
+        await sql`DELETE FROM todos WHERE id=${id}`
+        console.log("h2")
+        return res.status(200).json({
+            message : "Delete panniyachu"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message : "Internal server error"
+        })
+    }
+}
 
-export {addTask,getAllTask}
+
+export {addTask,getAllTask,deleteTask}
