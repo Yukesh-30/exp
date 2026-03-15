@@ -53,4 +53,24 @@ const deleteTask = async (req,res) =>{
 }
 
 
-export {addTask,getAllTask,deleteTask}
+const getOneTask = async (req,res) =>{
+    try {
+        const {id} = req.body;
+        const tasks = await sql`SELECT * FROM todos where id=${id}`
+        if(tasks.length===0){
+            return res.status(404).json({
+                message : "Data Not Found"
+            })
+        }
+
+        return res.status(200).json({
+            tasks
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message : "Internal server error"
+        })
+    }
+}
+
+export {addTask,getAllTask,deleteTask,getOneTask}
